@@ -1,23 +1,32 @@
 <!--
   This template loads for the 'tab.about' state (app.js)
 -->
-<ion-view title="'About Ionic'">
+<ion-view title="SumBaby">
+
+
+
     <ion-content has-header="true" has-tabs="true" padding="true">
 
 
         <div ng-controller="Controller" ng-init="init()">
 
-            {{user.totalCount %20 }}
-            <p ng-model="user.totalCorrect">Score : {{user.totalCorrect}} / {{user.totalCount}}</p>
+            <h3 ng-model="user.totalCorrect">Score : {{user.totalCorrect}} / {{user.totalCount}}</h3>
 
 
 
 
             <form novalidate class="simple-form">
-                <input type="text" readonly ng-model="user.val0" />
-                <br />
-                <input type="text" readonly ng-model="user.val1" />
-                <br />
+
+                <label class="item item-input " >
+                    <span class="input-label " ng-model="user.val[0]">{{user.val[0]}}</span>
+
+                </label>
+                <label class="item item-input " >
+                    <span class="input-label " ng-model="user.val[0]">{{user.val[1]}}</span>
+
+                </label>
+
+
 
 
 
@@ -35,15 +44,12 @@
                 <br />
                 <br />
 
-                <button ng-click=" reset() ">RESET</button>
-                <button ng-click="update(user) ">SAVE</button>
+
             </form>
-            <pre>form = {{user | json}}</pre>
-            <pre>master = {{master | json}}</pre>
+             
 
 
-
-
+ 
 
 
 

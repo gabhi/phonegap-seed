@@ -8,17 +8,18 @@ angular.module('starter.controllers', [])
 })
 	.controller('Controller', ['$scope',
 		function($scope) {
-			$scope.limitArray = [20, 50, 100, 500, 1000, 5000, 10000, 100000, 10000000];
-			$scope.currentLimitIndex = 0;
-			$scope.currentLimit = $scope.limitArray[$scope.currentLimitIndex];
-			$scope.maxCurrentLimit = $scope.currentLimit + $scope.currentLimit;
 
 			$scope.master = {};
 
 			$scope.init = function() {
-
-				$scope.user.val1 = "111";
-				$scope.user.val0 = "222";
+				$scope.limitArray = [20, 50, 100, 500, 1000, 5000, 10000, 100000, 10000000];
+				$scope.currentLimitIndex = 0;
+				$scope.currentLimit = $scope.limitArray[$scope.currentLimitIndex];
+				$scope.maxCurrentLimit = $scope.currentLimit + $scope.currentLimit;
+				$scope.user.customLevel = 0;
+				$scope.user.val = [];
+				$scope.user.val[0] = "111";
+				$scope.user.val[1] = "222";
 				$scope.user.opt = [];
 				$scope.user.opt[0] = "111";
 				$scope.user.opt[1] = "222";
@@ -33,20 +34,28 @@ angular.module('starter.controllers', [])
 				return Math.floor(Math.random() * (max - min + 1)) + min;
 
 			};
-			$scope.updateLimits = function() {
-				$scope.currentLimitIndex = $scope.currentLimitIndex + 1;
-				$scope.currentLimit = $scope.limitArray[$scope.currentLimitIndex];
-				$scope.maxCurrentLimit = $scope.currentLimit + $scope.currentLimit;
 
+			$scope.toggleMenu = function() {
+				$scope.sideMenuController.toggleLeft();
 			};
 
+			$scope.updateLimitsByLimitIndex = function() {
+				$scope.currentLimitIndex = $scope.currentLimitIndex + 1;
+				$scope.updateLimits($scope.limitArray[$scope.currentLimitIndex], $scope.currentLimit + $scope.currentLimit);
+
+			};
+			$scope.updateLimits = function(currentLimit, maxCurrentLimit) {
+				$scope.currentLimit = currentLimit;
+				$scope.maxCurrentLimit = maxCurrentLimit;
+
+			};
 
 
 			$scope.resetQuestion = function() {
 				var v1 = $scope.getRandomInt(0, $scope.currentLimit);
 				var v2 = $scope.getRandomInt(0, $scope.currentLimit);
-				$scope.user.val1 = v1;
-				$scope.user.val0 = v2;
+				$scope.user.val[0] = v1;
+				$scope.user.val[1] = v2;
 
 				var correctAnswerIndex = $scope.getRandomInt(0, 3);
 
@@ -77,13 +86,15 @@ angular.module('starter.controllers', [])
 				}
 				if ($scope.user.totalCount % 20 == 0) {
 					console.log("limit increase");
-					$scope.updateLimits();
+					if ($scope.user.customLevel == 0)
+						$scope.updateLimitsByLimitIndex();
+
 				}
 			};
 
 			$scope.checkAns = function(val) {
 
-				var ans = +$scope.user.val0 + +$scope.user.val1;
+				var ans = +$scope.user.val[0] + +$scope.user.val[1];
 
 				if (val == ans) {
 					//console.log("correct");
