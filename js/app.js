@@ -52,16 +52,24 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers'])
       }
     }
   })
-
-  .state('tab.about', {
-    url: '/about',
-    views: {
-      'about-tab': {
-        templateUrl: 'templates/about.html',
-        controller: 'Controller'
+    .state('tab.sum', {
+      url: '/ops/:petId',
+      views: {
+        'adopt-tab': {
+          templateUrl: 'templates/sum.html',
+          controller: 'Controller'
+        }
       }
-    }
-  });
+    })
+    .state('tab.about', {
+      url: '/about',
+      views: {
+        'about-tab': {
+          templateUrl: 'templates/about.html',
+          controller: 'Controller'
+        }
+      }
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/about');
