@@ -6,9 +6,21 @@ angular.module('starter.controllers', [])
 	// "Pets" is a service returning mock data (services.js)
 	$scope.pets = PetService.all();
 })
-	.controller('Controller', ['$scope', '$stateParams',
+	.controller('Controller', ['$scope', '$stateParams', '$http',
 
-		function($scope, $stateParams, $route) {
+		function($scope, $stateParams, $http,$route) {
+
+			$scope.mydata1="this is my data anyways";
+
+			$http.get('http://spiraljobs.com/api/test').
+        success(function(data, status, headers, config) {
+        	console.log("got data");
+            $scope.mydata="this is my data anyways22";
+
+        });
+
+			
+
 			//console.log($route.current.params);
 			$scope.pageTitle = $stateParams.petId;
 
